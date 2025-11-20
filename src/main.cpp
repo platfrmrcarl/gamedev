@@ -9,7 +9,7 @@ int main()
         exit(-1);
     }
 
-    SDL_Window* window = SDL_CreateWindow("Title", 1280, 720, SDL_WINDOW_VULKAN);
+    SDL_Window* window = SDL_CreateWindow("Game Dev Demo", 1280, 720, SDL_WINDOW_VULKAN);
     if(!window)
     {
         std::cout << "Failed to create window: " << SDL_GetError() << std::endl;
