@@ -11,6 +11,7 @@ SRC = src/main.cpp \
       src/Core/Level.cpp \
       src/Input/InputManager.cpp \
       src/Input/PlayerController.cpp \
+      src/Graphics/Sprite.cpp \
       src/States/StateManager.cpp \
       src/Physics/Physics.cpp \
       src/Entities/GameObject.cpp \

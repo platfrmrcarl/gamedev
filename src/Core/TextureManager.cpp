@@ -22,6 +22,8 @@ bool TextureManager::Load(std::string id, std::string filename) {
 }
 
 void TextureManager::Draw(std::string id, int x, int y, int width, int height, SDL_FlipMode flip) {
+    if (m_TextureMap.find(id) == m_TextureMap.end()) return;
+
     SDL_FRect srcRect = { 0, 0, (float)width, (float)height };
     // We need to account for camera here eventually, but for now raw drawing
     // Actually, Camera transform should happen in the call or we pass a camera offset.
@@ -32,6 +34,8 @@ void TextureManager::Draw(std::string id, int x, int y, int width, int height, S
 }
 
 void TextureManager::DrawFrame(std::string id, int x, int y, int width, int height, int row, int frame, SDL_FlipMode flip) {
+    if (m_TextureMap.find(id) == m_TextureMap.end()) return;
+
     SDL_FRect srcRect = { (float)width * frame, (float)height * (row - 1), (float)width, (float)height };
     SDL_FRect dstRect = { (float)x, (float)y, (float)width, (float)height };
     SDL_RenderTextureRotated(Engine::GetInstance().GetRenderer(), m_TextureMap[id], &srcRect, &dstRect, 0, NULL, flip);
