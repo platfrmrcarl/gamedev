@@ -1,5 +1,10 @@
 #include <iostream>
 #include <SDL3/SDL.h>
+#include <SDL3/SDL_main.h>
+#include <vector>
+#include <memory>
+#include <string>
+
 
 int main()
 {
@@ -9,7 +14,7 @@ int main()
         exit(-1);
     }
 
-    SDL_Window* window = SDL_CreateWindow("Game Dev Demo", 1280, 720, SDL_WINDOW_VULKAN);
+    SDL_Window* window = SDL_CreateWindow("Game Dev Demo", 1280, 720, SDL_WINDOW_RESIZABLE);
     if(!window)
     {
         std::cout << "Failed to create window: " << SDL_GetError() << std::endl;
