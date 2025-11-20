@@ -1,43 +1,21 @@
+#include "Core/Engine.h"
+#include "States/PlayState.h"
 #include <iostream>
-#include <SDL3/SDL.h>
-#include <SDL3/SDL_main.h>
-#include <vector>
-#include <memory>
-#include <string>
 
-
-int main()
-{
-    if(!SDL_Init(SDL_INIT_VIDEO))
-    {
-        std::cout << "Failed to initialize " << SDL_GetError() << std::endl;
-        exit(-1);
+int main(int argc, char* argv[]) {
+    if (!Engine::GetInstance().Init("2D Game Engine", 1280, 720)) {
+        std::cerr << "Failed to initialize engine." << std::endl;
+        return -1;
     }
 
-    SDL_Window* window = SDL_CreateWindow("Game Dev Demo", 1280, 720, SDL_WINDOW_RESIZABLE);
-    if(!window)
-    {
-        std::cout << "Failed to create window: " << SDL_GetError() << std::endl;
-        exit(-1);
+    Engine::GetInstance().GetStateManager().PushState(std::make_shared<PlayState>());
+
+    while (Engine::GetInstance().IsRunning()) {
+        Engine::GetInstance().Events();
+        Engine::GetInstance().Update();
+        Engine::GetInstance().Render();
     }
 
-    SDL_Renderer* render = SDL_CreateRenderer(window, NULL);
-
-    bool running = true;
-    while(running)
-    {
-        SDL_Event event;
-
-        SDL_RenderPresent(render);
-        while(SDL_PollEvent(&event))
-        {
-            if(event.type == SDL_EVENT_QUIT)
-            {
-                running = false;
-            }
-        }
-    }
-
-    SDL_DestroyWindow(window);
-    SDL_Quit();
+    Engine::GetInstance().Clean();
+    return 0;
 }

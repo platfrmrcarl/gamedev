@@ -1,10 +1,21 @@
 # Compiler setup
 CXX = g++
-CXXFLAGS = -Wall -std=c++17 -g $(shell pkg-config --cflags sdl3)
+CXXFLAGS = -Wall -std=c++17 -g -Isrc $(shell pkg-config --cflags sdl3)
 LDFLAGS = $(shell pkg-config --libs sdl3)
 
 # Source and Output
-SRC = src/main.cpp
+SRC = src/main.cpp \
+      src/Core/Engine.cpp \
+      src/Core/Camera.cpp \
+      src/Core/TextureManager.cpp \
+      src/Core/Level.cpp \
+      src/Input/InputManager.cpp \
+      src/Input/PlayerController.cpp \
+      src/States/StateManager.cpp \
+      src/Physics/Physics.cpp \
+      src/Entities/GameObject.cpp \
+      src/States/PlayState.cpp
+
 OBJ = $(SRC:.cpp=.o)
 TARGET = game
 
@@ -21,6 +32,6 @@ $(TARGET): $(OBJ)
 
 # Clean up build files
 clean:
-	rm -f $(OBJ) $(TARGET)
+	rm -f $(OBJ) $(TARGET) src/Core/*.o src/Input/*.o src/States/*.o src/Physics/*.o src/Entities/*.o
 
 .PHONY: all clean
